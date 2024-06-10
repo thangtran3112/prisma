@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid())
+  age            Int
+  name           String
+  email          String          @unique
+  role           Role            @default(BASIC)
+  info           Json
+  blob           Bytes
+  writtenPosts   Post[]          @relation("WrittenPosts")
+  favoritePosts  Post[]          @relation("FavoritePosts")
+  UserPreference UserPreference?
+
+  //Block-level attribute. Eg. No user with the both age and name duplicate.
+  @@unique([age, name])
+  @@index([email, name])
+}
+
+// one to one relationship
+model UserPreference {
+  id           String  @id @default(uuid())
+  emailUpdates Boolean
+  user         User    @relation(fields: [userId], references: [id])
+  userId       String  @unique
+}
+
+model Post {
+  id            String    @id @default(uuid())
+  title         String
+  averageRating Float
+  rating        Float
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  author        User      @relation("WrittenPosts", fields: [authorId], references: [id])
+  authorId      String
+  favoriteBy    User?     @relation("FavoritePosts", fields: [favoriteById], references: [id])
+  favoriteById  String?
+  Category      Category? @relation(fields: [categoryId], references: [id])
+  categoryId    String?
+
+  // @@id([title, authorId])
+}
+
+// Many to many, auto joined table
+model Category {
+  id    String @id @default(uuid())
+  name  String @unique
+  posts Post[]
+}
+
+enum Role {
+  BASIC
+  EDITOR
+  ADMIN
+}
