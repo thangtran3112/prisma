@@ -22,10 +22,18 @@ import {
 } from "./create";
 import { prisma } from "./client";
 import {
+  disconnectForeignKey,
   updateManyOnRole,
   updateSingleUser,
+  updateWithCreatingForeignEntry,
+  updateWithExistingUserPreference,
   updateWithIncrement,
 } from "./update";
+import {
+  deleteAllSallyUsers,
+  deleteAllUsersHigherAgeThan20,
+  deleteUniqueUser,
+} from "./delete";
 
 async function deleteAllUsers() {
   console.log("Delete all users...");
@@ -62,6 +70,12 @@ async function main() {
   await updateSingleUser();
   await updateManyOnRole();
   await updateWithIncrement();
+  await updateWithCreatingForeignEntry();
+  await updateWithExistingUserPreference();
+  await disconnectForeignKey();
+  await deleteUniqueUser();
+  await deleteAllSallyUsers();
+  await deleteAllUsersHigherAgeThan20();
 }
 
 main()
