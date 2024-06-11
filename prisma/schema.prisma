@@ -14,28 +14,28 @@ datasource db {
 }
 
 model User {
-  id             String          @id @default(uuid())
-  age            Int
-  name           String
-  email          String          @unique
-  role           Role            @default(BASIC)
-  info           Json
-  blob           Bytes
-  writtenPosts   Post[]          @relation("WrittenPosts")
-  favoritePosts  Post[]          @relation("FavoritePosts")
-  UserPreference UserPreference?
+  id               String          @id @default(uuid())
+  age              Int
+  name             String
+  email            String          @unique
+  role             Role            @default(BASIC)
+  info             Json
+  // blob           Bytes
+  writtenPosts     Post[]          @relation("WrittenPosts")
+  favoritePosts    Post[]          @relation("FavoritePosts")
+  userPreference   UserPreference? @relation(fields: [userPreferenceId], references: [id])
+  userPreferenceId String?         @unique
 
   //Block-level attribute. Eg. No user with the both age and name duplicate.
   @@unique([age, name])
-  @@index([email, name])
+  @@index([email])
 }
 
 // one to one relationship
 model UserPreference {
   id           String  @id @default(uuid())
   emailUpdates Boolean
-  user         User    @relation(fields: [userId], references: [id])
-  userId       String  @unique
+  user         User?
 }
 
 model Post {

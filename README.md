@@ -33,9 +33,10 @@ $ npm i --save @prisma/client
 ## Using Prisma
 
 - Run migration or create database: `npx prisma migrate dev --name init`
-- Generate client again: `npx prisma generate`
+- Make sure to run `npx prisma generate` to generate client when models are changed
 
 ## Reset database
 
 - Inside `script.ts`, we can use `await prisma.user.deleteMany()`
 - If migration is needed, run `npx prisma migrate dev`
+- If models are changed, run `npx prisma generate` to repopulate /node_modules/@prisma/client
