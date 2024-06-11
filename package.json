@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "devStart" : "nodemon script.ts"
+    "dev:start": "nodemon script.ts",
+    "create:client": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
