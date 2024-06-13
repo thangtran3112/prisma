@@ -45,5 +45,5 @@ $ npm i --save @prisma/client
 
 - jobs_2023.sqlite and invoices_2023.sqlite, which can be opened with VSCode extension for SQLite
 - Optionally, we can convert these 2 SQLite DBs into MySQL or PostgreSQL
-- These 2 files can also be converted to CSV to be used by SQLite
+- These 2 files can also be converted to CSV to be used by VsCode Extension: [SQLite Editor](https://marketplace.visualstudio.com/items?itemName=yy0931.vscode-sqlite3-editor)
 - These 2 files can be imported into Browser based SQL engine such as SQLite
