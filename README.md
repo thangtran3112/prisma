@@ -40,3 +40,10 @@ $ npm i --save @prisma/client
 - Inside `script.ts`, we can use `await prisma.user.deleteMany()`
 - If migration is needed, run `npx prisma migrate dev`
 - If models are changed, run `npx prisma generate` to repopulate /node_modules/@prisma/client
+
+## Added Samples SQLite DB for testing
+
+- jobs_2023.sqlite and invoices_2023.sqlite, which can be opened with VSCode extension for SQLite
+- Optionally, we can convert these 2 SQLite DBs into MySQL or PostgreSQL
+- These 2 files can also be converted to CSV to be used by SQLite
+- These 2 files can be imported into Browser based SQL engine such as SQLite
